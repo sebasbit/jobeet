@@ -1,4 +1,3 @@
-# data/fixtures/categories.yml
 JobeetCategory:
   design:
     name: Design
