@@ -7,14 +7,20 @@
  */
 class JobeetJobTable extends Doctrine_Table
 {
-  /**
-   * Returns an instance of this class.
-   *
-   * @return object JobeetJobTable
-   */
+  static public $types = array(
+    'full-time' => 'Full time',
+    'part-time' => 'Part time',
+    'freelance' => 'Freelance',
+  );
+
   public static function getInstance()
   {
-      return Doctrine_Core::getTable('JobeetJob');
+    return Doctrine_Core::getTable('JobeetJob');
+  }
+
+  public function getTypes()
+  {
+    return self::$types;
   }
 
   public function retrieveActiveJob(Doctrine_Query $q)
