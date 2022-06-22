@@ -1,5 +1,7 @@
-# You can find more information about this file on the symfony website:
-# http://www.symfony-project.org/reference/1_4/en/10-Routing
+# module job rules
+job:
+  class:   sfDoctrineRouteCollection
+  options: { model: JobeetJob }
 
 job_show_user:
   url:     /job/:company_slug/:location_slug/:id/:position_slug
@@ -14,8 +16,3 @@ job_show_user:
 homepage:
   url:   /
   param: { module: job, action: index }
-
-# generic rules
-# please, remove them by adding more specific rules
-default:
-  url:   /:module/:action/*
