@@ -1,16 +1,24 @@
-# You can find more information about this file on the symfony website:
-# http://www.symfony-project.org/reference/1_4/en/10-Routing
+# module category rules
+jobeet_category:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                JobeetCategory
+    module:               category
+    prefix_path:          /category
+    column:               id
+    with_wildcard_routes: true
+
+# module job rules
+jobeet_job:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                JobeetJob
+    module:               job
+    prefix_path:          /job
+    column:               id
+    with_wildcard_routes: true
 
 # default rules
 homepage:
   url:   /
-  param: { module: default, action: index }
-
-# generic rules
-# please, remove them by adding more specific rules
-default_index:
-  url:   /:module
-  param: { action: index }
-
-default:
-  url:   /:module/:action/*
+  param: { module: job, action: index }
