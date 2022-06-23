@@ -112,9 +112,7 @@ $browser->info('3 - Post a Job page')->
   end()
 ;
 
-$browser->info('3 - Post a Job page')->
-  info('  3.2 - Submit a Job with invalid values')->
-
+$browser->info('  3.2 - Submit a Job with invalid values')->
   get('/job/new')->
   click('Preview your job', array('jobeet_job' => array(
     'company'      => 'Sensio Labs',
@@ -128,5 +126,28 @@ $browser->info('3 - Post a Job page')->
     isError('description', 'required')->
     isError('how_to_apply', 'required')->
     isError('email', 'invalid')->
+  end()
+;
+
+$browser->info('  3.3 - On the preview page, you can publish the job')->
+  createJob(array('position' => 'FOO1'))->
+  click('Publish', array(), array('method' => 'put', '_with_csrf' => true))->
+
+  with('doctrine')->begin()->
+    check('JobeetJob', array(
+      'position'     => 'FOO1',
+      'is_activated' => true,
+    ))->
+  end()
+;
+
+$browser->info('  3.4 - On the preview page, you can delete the job')->
+  createJob(array('position' => 'FOO2'))->
+  click('Delete', array(), array('method' => 'delete', '_with_csrf' => true))->
+
+  with('doctrine')->begin()->
+    check('JobeetJob', array(
+      'position' => 'FOO2',
+    ), false)->
   end()
 ;
