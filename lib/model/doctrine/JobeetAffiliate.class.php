@@ -21,4 +21,18 @@ class JobeetAffiliate extends BaseJobeetAffiliate
 
     return parent::save($conn);
   }
+
+  public function getActiveJobs()
+  {
+    $q = Doctrine_Query::create()
+      ->select('j.*')
+      ->from('JobeetJob j')
+      ->leftJoin('j.JobeetCategory c')
+      ->leftJoin('c.JobeetAffiliates a')
+      ->where('a.id = ?', $this->getId());
+
+    $q = Doctrine_Core::getTable('JobeetJob')->addActiveJobsQuery($q);
+
+    return $q->execute();
+  }
 }
