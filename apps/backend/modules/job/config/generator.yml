@@ -25,6 +25,9 @@ generator:
         params:  |
           %%is_activated%% <small>%%jobeet_category%%</small> - %%company%%
            (<em>%%email%%</em>) is looking for a %%=position%% (%%location%%)
+        batch_actions:
+          _delete:    ~
+          extend:     ~
       filter:  ~
       form:    ~
       edit:
