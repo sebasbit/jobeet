@@ -26,8 +26,12 @@ generator:
           %%is_activated%% <small>%%jobeet_category%%</small> - %%company%%
            (<em>%%email%%</em>) is looking for a %%=position%% (%%location%%)
         batch_actions:
-          _delete:    ~
           extend:     ~
+          _delete:    ~
+        object_actions:
+          extend:     ~
+          _edit:      ~
+          _delete:    ~
       filter:  ~
       form:    ~
       edit:
