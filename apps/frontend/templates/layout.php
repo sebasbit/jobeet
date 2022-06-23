@@ -81,7 +81,7 @@
             <li><a href="">About Jobeet</a></li>
             <li class="feed"><a href="<?php echo url_for('job', array('sf_format' => 'atom')) ?>">Full feed</a></li>
             <li><a href="">Jobeet API</a></li>
-            <li class="last"><a href="">Affiliates</a></li>
+            <li class="last"><a href="<?php echo url_for('affiliate_new') ?>">Affiliates</a></li>
           </ul>
         </div>
       </div>

@@ -26,6 +26,13 @@ category:
   param:    { module: category, action: show }
   options:  { model: JobeetCategory, type: object }
 
+# module affiliate rules
+affiliate:
+  class:   sfDoctrineRouteCollection
+  options:
+    model: JobeetAffiliate
+    actions: [new, create]
+    object_actions: { wait: get }
 
 # module api rules
 api_jobs:
