@@ -66,3 +66,67 @@ $browser->info('2 - Job page')->
   get(sprintf('/job/sensio-labs/paris-france/%d/web-developer', $browser->getExpiredJob()->getId()))->
   with('response')->isStatusCode(404)
 ;
+
+$browser->setTester('doctrine', 'sfTesterDoctrine');
+
+$browser->info('3 - Post a Job page')->
+  info('  3.1 - Submit a Job')->
+
+  get('/job/new')->
+  with('request')->begin()->
+    isParameter('module', 'job')->
+    isParameter('action', 'new')->
+  end()->
+
+  click('Preview your job', array('jobeet_job' => array(
+    'company'      => 'Sensio Labs',
+    'url'          => 'http://www.sensio.com/',
+    'logo'         => sfConfig::get('sf_upload_dir').'/jobs/sensio-labs.gif',
+    'position'     => 'Developer',
+    'location'     => 'Atlanta, USA',
+    'description'  => 'You will work with symfony to develop websites for our customers.',
+    'how_to_apply' => 'Send me an email',
+    'email'        => 'for.a.job@example.com',
+    'is_public'    => false,
+  )))->
+
+  with('request')->begin()->
+    isParameter('module', 'job')->
+    isParameter('action', 'create')->
+  end()->
+
+  with('response')->isRedirected()->
+  followRedirect()->
+
+  with('request')->begin()->
+    isParameter('module', 'job')->
+    isParameter('action', 'show')->
+  end()->
+
+  with('doctrine')->begin()->
+  check('JobeetJob', array(
+    'location'     => 'Atlanta, USA',
+    'is_activated' => false,
+    'is_public'    => false,
+  ))->
+  end()
+;
+
+$browser->info('3 - Post a Job page')->
+  info('  3.2 - Submit a Job with invalid values')->
+
+  get('/job/new')->
+  click('Preview your job', array('jobeet_job' => array(
+    'company'      => 'Sensio Labs',
+    'position'     => 'Developer',
+    'location'     => 'Atlanta, USA',
+    'email'        => 'not.an.email',
+  )))->
+
+  with('form')->begin()->
+    hasErrors(3)->
+    isError('description', 'required')->
+    isError('how_to_apply', 'required')->
+    isError('email', 'invalid')->
+  end()
+;
