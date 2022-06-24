@@ -2,14 +2,12 @@
 
 require_once dirname(__FILE__).'/../../bootstrap/Doctrine.php';
 
-$t = new lime_test(5);
+$t = new lime_test(7);
 
 $t->comment('->getCompanySlug()');
 
 $job = Doctrine_Core::getTable('JobeetJob')->createQuery()->fetchOne();
 $t->is($job->getCompanySlug(), Jobeet::slugify($job->getCompany()), 'It returns the slug for the company');
-$t->is($job->getPositionSlug(), Jobeet::slugify($job->getPosition()), 'It returns the slug for the position');
-$t->is($job->getLocationSlug(), Jobeet::slugify($job->getLocation()), 'It returns the slug for the location');
 
 $t->comment('->save()');
 
@@ -19,6 +17,21 @@ $t->is($job->getDateTimeObject('expires_at')->format('Y-m-d'), $expiresAt, 'It u
 
 $job = create_job(array('expires_at' => '2022-02-22'));
 $t->is($job->getDateTimeObject('expires_at')->format('Y-m-d'), '2022-02-22', 'It does not update expires_at if set');
+
+$t->comment('->getForLuceneQuery()');
+
+$job = create_job(array('position' => 'foobar', 'is_activated' => false));
+$jobs = Doctrine_Core::getTable('JobeetJob')->getForLuceneQuery('position:foobar');
+$t->is(count($jobs), 0, 'It does not return non activated jobs');
+
+$job = create_job(array('position' => 'foobar', 'is_activated' => true));
+$jobs = Doctrine_Core::getTable('JobeetJob')->getForLuceneQuery('position:foobar');
+$t->is(count($jobs), 1, 'It returns jobs matching the criteria');
+$t->is($jobs[0]->getId(), $job->getId(), 'It returns jobs matching the criteria');
+
+$job->delete();
+$jobs = Doctrine_Core::getTable('JobeetJob')->getForLuceneQuery('position:foobar');
+$t->is(count($jobs), 0, 'It does not return deleted jobs');
 
 function create_job($defaults = array())
 {
