@@ -1,3 +1,13 @@
+# module affiliate rules
+jobeet_affiliate:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                JobeetAffiliate
+    module:               affiliate
+    prefix_path:          /affiliate
+    column:               id
+    with_wildcard_routes: true
+
 # module category rules
 jobeet_category:
   class: sfDoctrineRouteCollection

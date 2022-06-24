@@ -22,6 +22,20 @@ class JobeetAffiliate extends BaseJobeetAffiliate
     return parent::save($conn);
   }
 
+  public function activate()
+  {
+    $this->setIsActive(true);
+
+    return $this->save();
+  }
+
+  public function deactivate()
+  {
+    $this->setIsActive(false);
+
+    return $this->save();
+  }
+
   public function getActiveJobs()
   {
     $q = Doctrine_Query::create()
