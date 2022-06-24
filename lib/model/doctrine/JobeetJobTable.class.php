@@ -93,4 +93,23 @@ class JobeetJobTable extends Doctrine_Table
 
     return $affiliate->getActiveJobs();
   }
+
+  public static function getLuceneIndex()
+  {
+    ProjectConfiguration::registerZend();
+
+    if (file_exists($index = self::getLuceneIndexFile()))
+    {
+      return Zend_Search_Lucene::open($index);
+    }
+    else
+    {
+      return Zend_Search_Lucene::create($index);
+    }
+  }
+
+  public static function getLuceneIndexFile()
+  {
+    return sfConfig::get('sf_data_dir').'/job.'.sfConfig::get('sf_environment').'.index';
+  }
 }
