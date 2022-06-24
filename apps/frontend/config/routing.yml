@@ -19,6 +19,10 @@ job_show_user:
     id: \d+
     sf_method: [GET]
 
+job_search:
+  url:   /search
+  param: { module: job, action: search }
+
 # module category rules
 category:
   url:      /category/:slug
