@@ -207,3 +207,12 @@ $browser->info('4 - User job history')->
     isAttribute('job_history', array($browser->getMostRecentProgrammingJob()->getId()))->
   end()
 ;
+
+$browser->setHttpHeader('X_REQUESTED_WITH', 'XMLHttpRequest');
+
+$browser->info('5 - Live search')->
+  get('/search?query=sens*')->
+  with('response')->begin()->
+    checkElement('table tr', 2)->
+  end()
+;
