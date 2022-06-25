@@ -5,10 +5,13 @@ job:
     model: JobeetJob
     column: token
     object_actions: { publish: put, extend: put }
-  requirements: { token: \w+ }
+    prefix_path:    /:sf_culture/job
+  requirements:
+    token: \w+
+    sf_culture: (?:es|en)
 
 job_show_user:
-  url:     /job/:company_slug/:location_slug/:id/:position_slug
+  url:     /:sf_culture/job/:company_slug/:location_slug/:id/:position_slug
   class:   sfDoctrineRoute
   options:
     model: JobeetJob
@@ -18,17 +21,22 @@ job_show_user:
   requirements:
     id: \d+
     sf_method: [GET]
+    sf_culture: (?:es|en)
 
 job_search:
-  url:   /search
+  url:   /:sf_culture/search
   param: { module: job, action: search }
+  requirements:
+    sf_culture: (?:es|en)
 
 # module category rules
 category:
-  url:      /category/:slug
+  url:      /:sf_culture/category/:slug
   class:    sfDoctrineRoute
   param:    { module: category, action: show }
   options:  { model: JobeetCategory, type: object }
+  requirements:
+    sf_culture: (?:es|en)
 
 # module affiliate rules
 affiliate:
@@ -37,6 +45,9 @@ affiliate:
     model: JobeetAffiliate
     actions: [new, create]
     object_actions: { wait: get }
+    prefix_path:    /:sf_culture/affiliate
+  requirements:
+    sf_culture: (?:es|en)
 
 # module api rules
 api_jobs:
@@ -51,3 +62,9 @@ api_jobs:
 homepage:
   url:   /
   param: { module: job, action: index }
+
+localized_homepage:
+  url:   /:sf_culture/
+  param: { module: job, action: index }
+  requirements:
+    sf_culture: (?:es|en)
