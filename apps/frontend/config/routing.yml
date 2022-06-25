@@ -58,6 +58,11 @@ api_jobs:
   requirements:
     sf_format: (?:xml|json|yaml)
 
+# module language rules
+change_language:
+  url:   /change_language
+  param: { module: language, action: changeLanguage }
+
 # default rules
 homepage:
   url:   /

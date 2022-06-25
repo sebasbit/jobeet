@@ -85,6 +85,7 @@
             <li><a href="">Jobeet API</a></li>
             <li class="last"><a href="<?php echo url_for('affiliate_new') ?>">Affiliates</a></li>
           </ul>
+          <?php include_component('language', 'language') ?>
         </div>
       </div>
     </div>
