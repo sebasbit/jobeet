@@ -8,5 +8,6 @@ class sfJobeetLanguageComponents extends sfComponents
       $this->getUser(),
       array('languages' => array('en', 'es'))
     );
+    $this->form->disableLocalCSRFProtection();
   }
 }
