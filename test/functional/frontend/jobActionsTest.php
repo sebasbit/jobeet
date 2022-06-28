@@ -241,3 +241,16 @@ $browser->info('  6.3 - The culture guessing is only for the first request')->
   followRedirect()->
   with('user')->isCulture('es')
 ;
+
+$browser->info('7 - Job creation page')->
+  info('  7.1 - page is cached')->
+  get('/es/')->
+  with('view_cache')->isCached(true, false)->
+
+  createJob(array('category_id' => Doctrine_Core::getTable('JobeetCategory')->findOneBySlug('programming')->getId()), true)->
+
+  info('  7.1 - reload cache when a post is published')->
+  get('/es/')->
+  with('view_cache')->isCached(true, false)->
+  with('response')->checkElement('.category_programming .more_jobs', '/23/')
+;

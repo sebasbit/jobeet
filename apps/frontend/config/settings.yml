@@ -17,17 +17,17 @@ dev:
 test:
   .settings:
     error_reporting:        <?php echo ((E_ALL | E_STRICT) ^ E_NOTICE)."\n" ?>
-    cache:                  false
+    cache:                  true
     web_debug:              false
     no_script_name:         false
     etag:                   false
 
 cache:
   .settings:
-    error_reporting: <?php echo (E_ALL | E_STRICT)."\n" ?>
-    web_debug:       true
-    cache:           true
-    etag:            false
+    error_reporting:        <?php echo (E_ALL | E_STRICT)."\n" ?>
+    web_debug:              true
+    cache:                  true
+    etag:                   false
 
 all:
   .settings:
