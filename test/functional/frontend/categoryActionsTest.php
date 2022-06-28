@@ -11,7 +11,7 @@ $browser->info('1 - Category page')->
   get('/en/')->
   click('Programming')->
   with('request')->begin()->
-    isParameter('module', 'category')->
+    isParameter('module', 'sfJobeetCategory')->
     isParameter('action', 'show')->
     isParameter('slug', 'programming')->
   end()->
@@ -20,7 +20,7 @@ $browser->info('1 - Category page')->
   get('/en/')->
   click('22')->
   with('request')->begin()->
-    isParameter('module', 'category')->
+    isParameter('module', 'sfJobeetCategory')->
     isParameter('action', 'show')->
     isParameter('slug', 'programming')->
   end()->
