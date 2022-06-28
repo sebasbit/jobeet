@@ -3,7 +3,10 @@
 
 <?php slot(
   'title',
-  sprintf('%s is looking for a %s', $job->getCompany(), $job->getPosition())
+  __(
+    '%company% is looking for a %position%',
+    array('%company%' => $job->getCompany(), '%position%' => $job->getPosition())
+  )
 ) ?>
 
 <?php if ($sf_request->getParameter('token') == $job->getToken()): ?>
@@ -31,11 +34,11 @@
     <?php echo simple_format_text($job->getDescription()) ?>
   </div>
 
-  <h4>How to apply?</h4>
+  <h4><?php echo __('How to apply?') ?></h4>
 
   <p class="how_to_apply"><?php echo $job->getHowToApply() ?></p>
 
   <div class="meta">
-    <small>posted on <?php echo $job->getDateTimeObject('created_at')->format('m/d/Y') ?></small>
+    <small><?php echo __('posted on') . ' ' . $job->getDateTimeObject('created_at')->format('m/d/Y') ?></small>
   </div>
 </div>

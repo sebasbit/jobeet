@@ -1,6 +1,9 @@
 <?php use_stylesheet('jobs.css') ?>
 
-<?php slot('title', sprintf('Jobs in the %s category', $category->getName())) ?>
+<?php slot(
+  'title',
+  __('Jobs in the %category% category', array('%category%' => $category->getName()))
+) ?>
 
 <div class="category">
   <div class="feed">
@@ -40,9 +43,13 @@
 <?php endif; ?>
 
 <div class="pagination_desc">
-  <strong><?php echo $pager->getNbResults() ?></strong> jobs in this category
+  <?php echo format_number_choice(
+    '[0]No job in this category|[1]One job in this category|(1,+Inf]%count% jobs in this category',
+    array('%count%' => '<strong>'.count($pager).'</strong>'),
+    count($pager)
+  ) ?>
 
   <?php if ($pager->haveToPaginate()): ?>
-    - page <strong><?php echo $pager->getPage() ?>/<?php echo $pager->getLastPage() ?></strong>
+    - <?php echo __('page') ?> <strong><?php echo $pager->getPage() ?>/<?php echo $pager->getLastPage() ?></strong>
   <?php endif; ?>
 </div>
