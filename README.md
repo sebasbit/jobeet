@@ -3,7 +3,7 @@ Tutorial Jobeet como introducción al framework Symony 1.4
 
 ## Instalación
 - Debido a la versión de Symfony, la aplicación debe ejecutarse con PHP v5.4.* (recomendado PHP v5.4.45).
-- Configurar los parametros para conectar la base de datos en el archivo */config/database.yml* y ejecutar el comando php `.\symfony doctrine:build --all --and-migrate --no-confirmation`
+- Configurar los parametros para conectar la base de datos en el archivo */config/database.yml* y ejecutar el comando `php .\symfony doctrine:build --all --and-migrate --no-confirmation`
 - Para habilitar las dev tools crear un archivo [nombre del módulo]_dev.php y pegar el siguiente código
   ```php
   <?php
